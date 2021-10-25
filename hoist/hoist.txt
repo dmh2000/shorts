@@ -1,0 +1,54 @@
+D=====================================================
+$cat hoist0.js
+// no var declaration
+// 'a' causes abort due to reference error
+
+console.log("a", a);
+D=====================================================
+$node hoist0.js
+/mnt/f/projects/shorts/hoist/hoist0.js:4
+console.log("a", a);
+                 ^
+
+ReferenceError: a is not defined
+    at Object.<anonymous> (/mnt/f/projects/shorts/hoist/hoist0.js:4:18)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)
+    at internal/main/run_main_module.js:17:47
+D=====================================================
+$cat hoist1.js
+// var declaration is hoisted to top of scope
+// assignment IS visible to access
+// value of a is printed in console.log
+var a = 1;
+console.log("a", a);
+D=====================================================
+$node hoist1.js
+a 1
+D=====================================================
+$cat hoist2.js
+// var declaration is hoisted to top of scope
+// assignment is NOT visible to access
+// a is declared but undefined in console.log
+
+var a;
+console.log("a", a);
+a = 1;
+D=====================================================
+$node hoist2.js
+a undefined
+D=====================================================
+$cat hoist3.js
+// var declaration is hoisted to top of scope
+// assignment is NOT visible to usage
+// 'a' is declared but is undefined in console.log
+
+console.log("a", a);
+var a = 1;
+D=====================================================
+$node hoist3.js
+a undefined
+D=====================================================
